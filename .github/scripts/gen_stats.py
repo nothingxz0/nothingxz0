@@ -1,64 +1,54 @@
 #!/usr/bin/env python3
-"""Render a GitHub stats card in the same visual language as the 42 badge.
+"""GitHub stats card.
 
-Third-party stat widgets each bring their own look, and half of them are dead
-(github-readme-stats and github-profile-trophy are both returning 5xx/402 as of
-now). Drawing it here keeps one consistent style and one less thing to rot.
+Drawn here rather than pulled from a widget service: the popular ones
+(github-readme-stats, github-profile-trophy, github-readme-activity-graph)
+are all returning 5xx/402, and each would drag in its own visual style.
 """
-import json
-import os
-import sys
-import urllib.request
+import json, os, sys, urllib.request
+sys.path.insert(0, os.path.dirname(__file__))
+from theme import *
 
 USER = sys.argv[1] if len(sys.argv) > 1 else "nothingxz0"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "dist/stats.svg"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
+API, GQL = "https://api.github.com", "https://api.github.com/graphql"
+u = "g"
 
-sys.path.insert(0, os.path.dirname(__file__))
-from theme import *
-SHADES = RAMP
-
-API = "https://api.github.com"
-GQL = "https://api.github.com/graphql"
+SHORT = {"Jupyter Notebook": "Jupyter", "Go Template": "Go tmpl"}
 
 
 def get(url):
-    req = urllib.request.Request(url, headers={
+    r = urllib.request.Request(url, headers={
         "Authorization": f"Bearer {TOKEN}", "User-Agent": "profile-readme",
         "Accept": "application/vnd.github+json"})
-    return json.loads(urllib.request.urlopen(req, timeout=45).read().decode())
-
-
-def gql(query):
-    body = json.dumps({"query": query}).encode()
-    req = urllib.request.Request(GQL, data=body, headers={
-        "Authorization": f"Bearer {TOKEN}", "User-Agent": "profile-readme",
-        "Content-Type": "application/json"})
-    return json.loads(urllib.request.urlopen(req, timeout=45).read().decode())
+    return json.loads(urllib.request.urlopen(r, timeout=45).read().decode())
 
 
 user = get(f"{API}/users/{USER}")
 
-# total contributions across the last year, public only
 contrib = 0
 try:
-    q = '{user(login:"%s"){contributionsCollection{contributionCalendar{totalContributions}}}}' % USER
-    contrib = gql(q)["data"]["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
+    q = ('{user(login:"%s"){contributionsCollection{contributionCalendar'
+         '{totalContributions}}}}' % USER)
+    r = urllib.request.Request(GQL, data=json.dumps({"query": q}).encode(), headers={
+        "Authorization": f"Bearer {TOKEN}", "User-Agent": "profile-readme",
+        "Content-Type": "application/json"})
+    contrib = (json.loads(urllib.request.urlopen(r, timeout=45).read().decode())
+               ["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+               ["totalContributions"])
 except Exception as e:
     print("contrib lookup failed:", e, file=sys.stderr)
 
-# public repos owned by the user -> stars + language bytes
-langs, stars, repos = {}, 0, []
-page = 1
+langs, stars, repos, page = {}, 0, [], 1
 while True:
-    batch = get(f"{API}/users/{USER}/repos?per_page=100&page={page}&type=owner")
-    if not batch:
+    b = get(f"{API}/users/{USER}/repos?per_page=100&page={page}&type=owner")
+    if not b:
         break
-    repos += batch
+    repos += b
     page += 1
-for r in repos:
-    if r.get("fork"):
-        continue
+own = [r for r in repos if not r.get("fork")]
+for r in own:
     stars += r.get("stargazers_count", 0)
     try:
         for k, v in get(r["languages_url"]).items():
@@ -67,60 +57,54 @@ for r in repos:
         pass
 
 total = sum(langs.values()) or 1
-SHORT = {"Jupyter Notebook": "Jupyter", "Go Template": "Go tmpl"}
-top = sorted(langs.items(), key=lambda kv: -kv[1])[:5]
-top = [(SHORT.get(k, k), v) for k, v in top]
-shown = sum(v for _, v in top)
+top = [(SHORT.get(k, k), v) for k, v in sorted(langs.items(), key=lambda kv: -kv[1])[:5]]
 rows = [(k, v / total * 100) for k, v in top]
-if total - shown > 0:
-    rows.append(("Other", (total - shown) / total * 100))
+rest = total - sum(v for _, v in top)
+if rest > 0:
+    rows.append(("Other", rest / total * 100))
 
-PAD, u = 34, "g"
-BAR_Y, BAR_H = 104, 7
-LEG_TOP = BAR_Y + BAR_H + 26
-per_line = 3
-lines = (len(rows) + per_line - 1) // per_line
-H = LEG_TOP + lines * 20 + 6
+BAR_Y, BAR_H = 112, 6
+LEG = BAR_Y + BAR_H + 28
+per = 3
+H = int(LEG + ((len(rows) + per - 1) // per) * 21 + 10)
 
-figs = [(str(len([r for r in repos if not r.get('fork')])), "REPOS"),
-        (str(contrib), "COMMITS / YR"),
-        (str(user.get("followers", 0)), "FOLLOWERS"),
-        (str(stars), "STARS")]
+figs = [(str(len(own)), "REPOS"), (str(contrib), "COMMITS / YR"),
+        (str(user.get("followers", 0)), "FOLLOWERS"), (str(stars), "STARS")]
 
-parts = [open_svg(H, f"GitHub statistics for {USER}"),
-         f"<title>{USER} — {figs[0][0]} repos, {contrib} contributions in the last year</title>",
-         defs(uid=u), clip(H, u), f'<g clip-path="url(#card{u})">', frame(H, u),
-         orb(80, 10, 180, u, dur=13, delay=2), orb(700, H, 190, u, dur=16, delay=6),
-         f'<g font-family="{MONO}" font-size="9.5" letter-spacing="3" fill="{DIM}">'
-         f'<text x="{PAD}" y="36">GITHUB</text>'
-         f'<text x="{W-PAD}" y="36" text-anchor="end">@{USER}</text></g>']
+p = [head(H, f"GitHub statistics for {USER}"),
+     f"<title>{USER} — {len(own)} repos, {contrib} contributions in the last year</title>",
+     plate_defs(H, u), f'<g clip-path="url(#clip{u})">', plate(H, u), eyes(u),
+     eyebrow(62, 32.5, "GITHUB"),
+     eyebrow(W - PAD, 32.5, f"@{USER.upper()}", anchor="end", fill=GHOST)]
 
 col = (W - PAD * 2) / 4
-for i, (val, label) in enumerate(figs):
+for i, (val, lab) in enumerate(figs):
     x = PAD + col * i
-    parts.append(f'<text x="{x:.1f}" y="80" font-family="{SANS}" font-size="30" font-weight="600" '
-                 f'letter-spacing="-1" fill="{WHITE}" filter="url(#glow{u})">{val}</text>')
-    parts.append(f'<text x="{x:.1f}" y="95" font-family="{MONO}" font-size="8.5" '
-                 f'letter-spacing="1.6" fill="{DIM}">{label}</text>')
+    p.append(f'<text x="{x:.1f}" y="88" font-family="{MONO}" font-size="34" '
+             f'font-weight="500" letter-spacing="-0.34" fill="{BONE}">{val}</text>')
+    p.append(f'<text x="{x:.1f}" y="103" font-family="{MONO}" font-size="9" '
+             f'font-weight="500" letter-spacing="1.1" fill="{DIM}">{lab}</text>')
 
-x = PAD
 bar_w = W - PAD * 2
-for i, (name, pct) in enumerate(rows):
-    w = bar_w * pct / 100
-    r_ = 'rx="3.5"' if (i == 0 or i == len(rows) - 1) else ''
-    parts.append(f'<rect x="{x:.2f}" y="{BAR_Y}" width="{max(w,1):.2f}" height="{BAR_H}" {r_} '
-                 f'fill="{SHADES[i % len(SHADES)]}"/>')
+x = PAD
+p.append(f'<rect x="{PAD}" y="{BAR_Y}" width="{bar_w}" height="{BAR_H}" rx="1" fill="{TRACK}"/>')
+for i, (n, pc) in enumerate(rows):
+    w = bar_w * pc / 100
+    # rank-1 in crimson: the card's second and last crimson element, unglowed
+    fill = f'{CRIM}" fill-opacity="0.88' if i == 0 else RAMP[(i - 1) % len(RAMP)]
+    p.append(f'<rect x="{x:.2f}" y="{BAR_Y}" width="{max(w,1):.2f}" height="{BAR_H}" rx="1" '
+             f'fill="{fill}"/>')
     x += w
 
-for i, (name, pct) in enumerate(rows):
-    cx = PAD + (i % per_line) * (bar_w / per_line)
-    cy = LEG_TOP + (i // per_line) * 20
-    parts.append(f'<rect x="{cx:.1f}" y="{cy-8:.1f}" width="7" height="7" rx="2" '
-                 f'fill="{SHADES[i % len(SHADES)]}"/>')
-    parts.append(f'<text x="{cx+15:.1f}" y="{cy:.1f}" font-family="{MONO}" font-size="10.5" '
-                 f'fill="{MUTED}">{name} <tspan fill="{DIM}">{pct:.1f}%</tspan></text>')
+for i, (n, pc) in enumerate(rows):
+    cx = PAD + (i % per) * (bar_w / per)
+    cy = LEG + (i // per) * 21
+    sw = CRIM if i == 0 else RAMP[(i - 1) % len(RAMP)]
+    p.append(f'<rect x="{cx:.1f}" y="{cy-7.5:.1f}" width="6" height="6" rx="1" fill="{sw}"/>')
+    p.append(f'<text x="{cx+15:.1f}" y="{cy:.1f}" font-family="{MONO}" font-size="10.5" '
+             f'fill="{MUTED}">{n} <tspan fill="{GHOST}">{pc:.1f}%</tspan></text>')
 
-parts += ["</g>", "</svg>"]
+p += ["</g>", border(H), "</svg>"]
 os.makedirs(os.path.dirname(OUT) or ".", exist_ok=True)
-open(OUT, "w").write("\n".join(parts) + "\n")
-print(f"wrote {OUT}: {figs[0][0]} repos, {contrib} contributions, {stars} stars, top={rows[0][0]}")
+open(OUT, "w").write("\n".join(p) + "\n")
+print(f"wrote {OUT}: {len(own)} repos, {contrib} contributions, {stars} stars, top={rows[0][0]}")

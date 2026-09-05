@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stack card: monochrome icon tiles, grouped, glowing faintly."""
+"""Stack card — real full-colour brand marks on dark tiles."""
 import html, json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from theme import *
@@ -8,47 +8,49 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else "dist/skills.svg"
 ICONS = json.load(open(os.path.join(os.path.dirname(__file__), "..", "assets", "icons.json")))
 
 GROUPS = [
-    ("LANGUAGES", ["c", "cplusplus", "python", "typescript", "javascript", "gnubash"]),
-    ("SYSTEMS",   ["linux", "docker", "nginx", "git", "vim", "wireshark"]),
-    ("WEB & DATA",["react", "nodedotjs", "php", "wordpress", "mariadb"]),
+    ("LANGUAGES",  ["c", "cpp", "python", "typescript", "javascript", "bash"]),
+    ("SYSTEMS",    ["linux", "docker", "nginx", "git", "vim", "cmake"]),
+    ("WEB & DATA", ["react", "nodejs", "php", "wordpress", "mariadb"]),
 ]
 
-PAD, COLS, GAP = 34, 6, 12
-TILE = (W - PAD * 2 - GAP * (COLS - 1)) / COLS      # ~106
-TH = 74                                              # tile height
-HEAD, SECTION_GAP = 30, 26
+COLS, GAP = 6, 12
+TILE = (W - PAD * 2 - GAP * (COLS - 1)) / COLS
+TH = 82
+ICON = 30
+GROUP_GAP = 22
 u = "s"
 
-H = int(28 + sum(HEAD + TH + SECTION_GAP for _ in GROUPS) - SECTION_GAP + 18)
+H = int(56 + sum(26 + TH + GROUP_GAP for _ in GROUPS) - GROUP_GAP + 10)
 
-parts = [open_svg(H, "Tools and languages"), "<title>Stack</title>", defs(uid=u), clip(H, u),
-         f'<g clip-path="url(#card{u})">', frame(H, u),
-         orb(60, -20, 200, u, dur=13), orb(720, H, 200, u, dur=16, delay=4)]
+p = [head(H, "Languages, systems and web tools"), "<title>Stack</title>",
+     plate_defs(H, u), f'<g clip-path="url(#clip{u})">', plate(H, u), eyes(u),
+     eyebrow(62, 32.5, "STACK"),
+     eyebrow(W - PAD, 32.5, "WHAT I REACH FOR", anchor="end", fill=GHOST)]
 
-y = 40
-for title, slugs in GROUPS:
-    parts.append(f'<text x="{PAD}" y="{y}" font-family="{MONO}" font-size="9.5" '
-                 f'letter-spacing="3" fill="{DIM}">{html.escape(title)}</text>')
-    parts.append(f'<line x1="{PAD + 110}" y1="{y-4}" x2="{W-PAD}" y2="{y-4}" stroke="{HAIR}"/>')
-    y += 14
-    for i, slug in enumerate(slugs):
-        ic = ICONS.get(slug)
+y = 74
+for title, keys in GROUPS:
+    p.append(eyebrow(PAD, y, html.escape(title), fill=DIM, size=9.5, track=2.2))
+    p.append(f'<line x1="{PAD + len(title)*8.2 + 16:.0f}" y1="{y-3.5}" x2="{W-PAD}" '
+             f'y2="{y-3.5}" stroke="{FAINT}"/>')
+    y += 12
+    for i, k in enumerate(keys):
+        ic = ICONS.get(k)
         if not ic:
             continue
         x = PAD + i * (TILE + GAP)
-        # tile
-        parts.append(f'<rect x="{x:.1f}" y="{y}" width="{TILE:.1f}" height="{TH}" rx="8" '
-                     f'fill="#0e0e11" stroke="{LINE}"/>')
-        # icon, simple-icons are 24x24 -> scale and centre
-        s = 22 / 24
-        ix = x + TILE / 2 - 11
-        parts.append(f'<g transform="translate({ix:.1f},{y+16}) scale({s:.4f})" '
-                     f'fill="{WHITE}" opacity="0.92"><path d="{ic["path"]}"/></g>')
-        parts.append(f'<text x="{x + TILE/2:.1f}" y="{y + TH - 14}" font-family="{MONO}" '
-                     f'font-size="9" fill="{MUTED}" text-anchor="middle">{html.escape(ic["label"])}</text>')
-    y += TH + SECTION_GAP
+        p.append(f'<rect x="{x:.1f}" y="{y}" width="{TILE:.1f}" height="{TH}" rx="4" '
+                 f'fill="{WELL}" stroke="{LINE}"/>')
+        sc = ICON / max(ic["w"], ic["h"])
+        dw, dh = ic["w"] * sc, ic["h"] * sc
+        ix = x + TILE / 2 - dw / 2
+        iy = y + 19 + (ICON - dh) / 2
+        p.append(f'<g transform="translate({ix:.2f},{iy:.2f}) scale({sc:.5f})">{ic["inner"]}</g>')
+        p.append(f'<text x="{x + TILE/2:.1f}" y="{y + TH - 14}" font-family="{MONO}" '
+                 f'font-size="9.5" fill="{MUTED}" text-anchor="middle">'
+                 f'{html.escape(ic["label"])}</text>')
+    y += TH + GROUP_GAP
 
-parts += ["</g>", "</svg>"]
+p += ["</g>", border(H), "</svg>"]
 os.makedirs(os.path.dirname(OUT) or ".", exist_ok=True)
-open(OUT, "w").write("\n".join(parts) + "\n")
-print(f"wrote {OUT} ({H}px tall)")
+open(OUT, "w").write("\n".join(p) + "\n")
+print(f"wrote {OUT} ({H}px)")

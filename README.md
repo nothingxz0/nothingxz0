@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/header.svg" width="820" alt="Soufiane Lasfar — C, C++, systems, networks, containers" />
+<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/header.svg" width="100%" alt="Soufiane Lasfar — C, C++, systems, networks, containers" />
 
-<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/42.svg" width="820" alt="42cursus — level 5.17, Cadet" />
+<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/42.svg" width="100%" alt="42cursus — level 5.17, Cadet" />
 
-<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/stats.svg" width="820" alt="GitHub statistics" />
+<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/stats.svg" width="100%" alt="GitHub statistics" />
 
-<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/skills.svg" width="820" alt="Languages, systems and web tools I work with" />
+<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/skills.svg" width="100%" alt="Languages, systems and web tools I work with" />
 
 </div>
 
@@ -36,10 +36,10 @@ A raycasting engine in the Wolfenstein tradition, drawn a column at a time.
 
 <br>
 
-## Contributions
-
 <div align="center">
-  <img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/snake.svg" width="820" alt="Contribution graph being eaten by a snake" />
+
+<img src="https://raw.githubusercontent.com/nothingxz0/nothingxz0/output/snake.svg" width="100%" alt="Contribution graph being eaten by a snake" />
+
 </div>
 
 <br>
