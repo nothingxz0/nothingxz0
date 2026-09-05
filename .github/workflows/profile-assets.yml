@@ -30,6 +30,10 @@ jobs:
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
 
+      # snk runs in a container as root, so dist/ comes back not writable by us
+      - name: Take ownership of dist
+        run: sudo chown -R "$(id -u):$(id -g)" dist && ls -la dist
+
       - name: 42 cursus card
         run: python3 .github/scripts/gen_42_badge.py slasfar dist/42.svg
 
