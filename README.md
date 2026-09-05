@@ -23,29 +23,29 @@ I like small programs that do one thing, exit cleanly, and leave nothing behind.
 
 ## Work
 
-**[Inception](https://github.com/nothingxz0/inception)**
+**[Inception](https://github.com/nothingxz0/inception)** &nbsp;<sub>Docker · NGINX · Shell</sub><br>
 WordPress assembled from base images only — no pulling anything ready-made. NGINX
 is the single public entry point, TLS on 443, with MariaDB and PHP-FPM isolated
 behind it.
 
-**Panoptes** &nbsp;<sub>private</sub>
+**Panoptes** &nbsp;<sub>Python · private</sub><br>
 Finds copied C++ submissions in 42 projects. It fingerprints a student's folder
 and diffs it against public repositories. Named after the watchman with a hundred
 eyes, who was put to sleep one eye at a time.
 
-**[CPP Modules](https://github.com/nothingxz0/cpp_modules)**
+**[CPP Modules](https://github.com/nothingxz0/cpp_modules)** &nbsp;<sub>C++98</sub><br>
 Modules 00 through 09 — orthodox canonical form, templates, casts, containers.
 C++98 as the standard actually means it, not as people write it.
 
-**[minishell](https://github.com/elhiba/minishell)** &nbsp;<sub>with [@elhiba](https://github.com/elhiba)</sub>
+**[minishell](https://github.com/elhiba/minishell)** &nbsp;<sub>C · with [@elhiba](https://github.com/elhiba)</sub><br>
 A working shell in C: lexer, parser, expansions, heredocs, pipes, redirections and
 signal handling, without leaking on the way out.
 
-**[cub3D](https://github.com/elhiba/cub3d)** &nbsp;<sub>with [@elhiba](https://github.com/elhiba)</sub>
+**[cub3D](https://github.com/elhiba/cub3d)** &nbsp;<sub>C · MiniLibX · with [@elhiba](https://github.com/elhiba)</sub><br>
 A raycasting engine in the Wolfenstein tradition, drawn a column at a time with
 MiniLibX.
 
-**[ft_lock_docker](https://github.com/nothingxz0/ft_lock_docker)**
+**[ft_lock_docker](https://github.com/nothingxz0/ft_lock_docker)** &nbsp;<sub>Shell · Docker</sub><br>
 One command to build and run a containerised lock screen. Reads the password
 without echoing it and takes a background as an argument.
 
