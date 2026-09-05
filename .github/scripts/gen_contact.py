@@ -54,7 +54,7 @@ for name, mark_key, label, value in BADGES:
          f'<rect x="0.5" y="0.5" width="{W-1:.1f}" height="{H-1}" rx="9" '
          f'fill="{FILL}" stroke="{EDGE}"/>',
          # the ember tick, same accent as the rule on the identity badge
-         f'<rect x="0" y="{H/2-9:.1f}" width="2.5" height="18" rx="1.25" fill="{CRIM}"/>',
+         f'<rect x="0" y="{H/2-9:.1f}" width="2.5" height="18" rx="1.25" fill="{ACCENT}"/>',
          f'<g transform="translate({PADX},{iy:.1f}) scale({icon_scale:.5f})" fill="{VAL_FILL}">'
          f'<path d="{mk["path"]}"/></g>',
          f'<text x="{PADX + ICON + ICON_GAP:.1f}" y="{H/2 + 3.5:.1f}" font-family="{MONO}" '

@@ -55,7 +55,7 @@ p = [svg(W, H, "Soufiane Lasfar"), "<title>Soufiane Lasfar</title>", STYLE,
      f'preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,{data}"/>',
      f'<text x="{TX}" y="42" font-family="{DISPLAY}" font-size="33" letter-spacing="4.2" '
      f'class="pri">SOUFIANE LASFAR</text>',
-     f'<rect x="{TX+1}" y="57" width="52" height="2" fill="{CRIM}"/>',
+     f'<rect x="{TX+1}" y="57" width="52" height="2" fill="{ACCENT}"/>',
      f'<line x1="{TX+66}" y1="58" x2="{W}" y2="58" class="rule" stroke-width="1"/>']
 
 y = 86

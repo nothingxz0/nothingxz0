@@ -6,7 +6,8 @@ is therefore set in CSS and swapped on prefers-color-scheme, which an SVG
 still honours when it is loaded through <img>.
 """
 
-CRIM = "#ff1a26"
+# the purple of the drink in the picture -- the one accent in the system
+ACCENT = "#8153f2"
 
 DISPLAY = ("'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',"
            "'URW Palladio L',Georgia,'Times New Roman',serif")
