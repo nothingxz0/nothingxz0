@@ -39,6 +39,9 @@ jobs:
       - name: Stack badge
         run: python3 .github/scripts/gen_stack.py dist/stack.svg
 
+      - name: Contact buttons
+        run: python3 .github/scripts/gen_contact.py dist
+
       - name: Hero card
         run: python3 .github/scripts/gen_header.py dist/header.svg
 

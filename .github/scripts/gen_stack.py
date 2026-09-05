@@ -1,49 +1,53 @@
 #!/usr/bin/env python3
-"""Things I master — real full-colour brand marks, on no background."""
-import html, json, os, sys
+"""The stack — one section, real full-colour brand marks, on no background.
+
+Ordered low-level first, so it reads as a path from the metal outwards rather
+than as an unsorted pile. Rows are centred and balanced, which is what stops a
+17-item grid looking like it has a hole in the last row.
+"""
+import html, json, math, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from plain import *
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "dist/stack.svg"
 ICONS = json.load(open(os.path.join(os.path.dirname(__file__), "..", "assets", "icons.json")))
 
-GROUPS = [
-    ("LANGUAGES",  ["c", "cpp", "python", "typescript", "javascript", "bash"]),
-    ("SYSTEMS",    ["linux", "docker", "nginx", "git", "vim", "cmake"]),
-    ("WEB & DATA", ["react", "nodejs", "php", "wordpress", "mariadb"]),
-]
+ORDER = ["c", "cpp", "python", "bash", "linux", "vim", "git", "cmake", "docker",
+         "nginx", "mariadb", "php", "wordpress", "javascript", "typescript",
+         "nodejs", "react"]
 
 W = 800
-COLS, GAP = 6, 14
-CELL = (W - GAP * (COLS - 1)) / COLS
-ICON, CH = 34, 62
-GROUP_GAP = 26
+ICON, LABEL_DY, ROW_H = 36, 20, 78
+PER_ROW = 9
 
-H = int(sum(20 + CH + GROUP_GAP for _ in GROUPS) - GROUP_GAP + 6)
+keys = [k for k in ORDER if k in ICONS]
+rows = [keys[i:i + PER_ROW] for i in range(0, len(keys), PER_ROW)]
+# balance the rows so the last one is never a stub
+if len(rows) == 2 and len(rows[1]) < len(rows[0]) - 1:
+    half = math.ceil(len(keys) / 2)
+    rows = [keys[:half], keys[half:]]
 
-p = [svg(W, H, "Languages, systems and web tools"), "<title>Stack</title>", STYLE]
+CELL = 80
+H = len(rows) * ROW_H + 6
 
-y = 12
-for title, keys in GROUPS:
-    p.append(f'<text x="0" y="{y}" font-family="{MONO}" font-size="9.5" font-weight="700" '
-             f'letter-spacing="2.2" class="ter">{html.escape(title)}</text>')
-    p.append(f'<line x1="{len(title)*8.4 + 14:.0f}" y1="{y-3.5}" x2="{W}" y2="{y-3.5}" '
-             f'class="rule" stroke-width="1"/>')
-    y += 20
-    for i, k in enumerate(keys):
-        ic = ICONS.get(k)
-        if not ic:
-            continue
-        cx = i * (CELL + GAP) + CELL / 2
+p = [svg(W, H, "Languages, systems and tools I work with"), "<title>Stack</title>", STYLE]
+
+for r, row in enumerate(rows):
+    span = len(row) * CELL
+    x0 = (W - span) / 2
+    y = r * ROW_H + 8
+    for i, k in enumerate(row):
+        ic = ICONS[k]
+        cx = x0 + i * CELL + CELL / 2
         sc = ICON / max(ic["w"], ic["h"])
         dw, dh = ic["w"] * sc, ic["h"] * sc
         p.append(f'<g transform="translate({cx - dw/2:.2f},{y + (ICON - dh)/2:.2f}) '
                  f'scale({sc:.5f})">{ic["inner"]}</g>')
-        p.append(f'<text x="{cx:.1f}" y="{y + ICON + 17}" font-family="{MONO}" font-size="10" '
-                 f'class="sec" text-anchor="middle">{html.escape(ic["label"])}</text>')
-    y += CH + GROUP_GAP
+        p.append(f'<text x="{cx:.1f}" y="{y + ICON + LABEL_DY}" font-family="{MONO}" '
+                 f'font-size="10" class="sec" text-anchor="middle">'
+                 f'{html.escape(ic["label"])}</text>')
 
 p.append("</svg>")
 os.makedirs(os.path.dirname(OUT) or ".", exist_ok=True)
 open(OUT, "w").write("\n".join(p) + "\n")
-print(f"wrote {OUT} ({W}x{H})")
+print(f"wrote {OUT} ({W}x{H}) rows={[len(r) for r in rows]}")
