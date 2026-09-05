@@ -33,6 +33,12 @@ jobs:
       - name: Take ownership of dist
         run: sudo chown -R "$(id -u):$(id -g)" dist && ls -la dist
 
+      - name: Identity badge
+        run: python3 .github/scripts/gen_identity.py slasfar dist/identity.svg
+
+      - name: Stack badge
+        run: python3 .github/scripts/gen_stack.py dist/stack.svg
+
       - name: Hero card
         run: python3 .github/scripts/gen_header.py dist/header.svg
 
