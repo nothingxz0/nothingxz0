@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="207" height="46" viewBox="0 0 207 46" fill="none" text-rendering="geometricPrecision" role="img" aria-label="42 INTRA — slasfar">
+<title>42 INTRA — slasfar</title>
+<rect x="0.5" y="0.5" width="205.6" height="45" rx="9" fill="#0b0f16" stroke="#232b38"/>
+<rect x="0" y="14.0" width="2.5" height="18" rx="1.25" fill="#8153f2"/>
+<g transform="translate(16,14.5) scale(0.70833)" fill="#e6edf3"><path d="M19.581 16.851H24v-4.439ZM24 3.574h-4.419v4.42l-4.419 4.418v4.44h4.419v-4.44L24 7.993Zm-4.419 0h-4.419v4.42zm-6.324 8.838H4.419l8.838-8.838H8.838L0 12.412v3.595h8.838v4.419h4.419z"/></g>
+<text x="42.0" y="26.5" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10" font-weight="700" letter-spacing="1.9" fill="#8a919c">42 INTRA</text>
+<line x1="120.6" y1="12" x2="120.6" y2="34" stroke="#232b38"/>
+<text x="135.6" y="27.5" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="12.5" letter-spacing="0.3" fill="#e6edf3">slasfar</text>
+</svg>

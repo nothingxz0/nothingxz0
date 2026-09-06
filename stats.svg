@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="198" viewBox="0 0 800 198" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision" role="img" aria-label="GitHub statistics for nothingxz0">
+<title>nothingxz0 — 17 repos, 140 contributions in the last year</title>
+<defs><radialGradient id="hztlg" cx="0" cy="0" r="1"><stop offset="0" stop-color="#1b2130" stop-opacity="1"/><stop offset="0.55" stop-color="#1b2130" stop-opacity="0.34"/><stop offset="1" stop-color="#1b2130" stop-opacity="0"/></radialGradient><radialGradient id="hztrg" cx="1" cy="0" r="1"><stop offset="0" stop-color="#1b2130" stop-opacity="1"/><stop offset="0.55" stop-color="#1b2130" stop-opacity="0.34"/><stop offset="1" stop-color="#1b2130" stop-opacity="0"/></radialGradient><radialGradient id="hzblg" cx="0" cy="1" r="1"><stop offset="0" stop-color="#1b2130" stop-opacity="1"/><stop offset="0.55" stop-color="#1b2130" stop-opacity="0.34"/><stop offset="1" stop-color="#1b2130" stop-opacity="0"/></radialGradient><radialGradient id="hzbrg" cx="1" cy="1" r="1"><stop offset="0" stop-color="#1b2130" stop-opacity="1"/><stop offset="0.55" stop-color="#1b2130" stop-opacity="0.34"/><stop offset="1" stop-color="#1b2130" stop-opacity="0"/></radialGradient><filter id="eyeg" x="-500%" y="-500%" width="1100%" height="1100%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="1.6" result="b1"/><feGaussianBlur in="SourceGraphic" stdDeviation="5.5" result="b2"/><feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/></feMerge></filter><clipPath id="clipg"><rect x="0" y="0" width="800" height="198" rx="10"/></clipPath></defs><style>@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}.eL{animation:breathe 5.2s ease-in-out infinite}.eR{animation:breathe 5.2s ease-in-out infinite;animation-delay:-.7s}@media (prefers-reduced-motion:reduce){.eL,.eR{animation:none;opacity:.85}}</style>
+<g clip-path="url(#clipg)">
+<rect x="0" y="0" width="800" height="198" fill="#05070c"/><rect x="0" y="0" width="200" height="200" fill="url(#hztlg)" opacity="0.30"/><rect x="600" y="0" width="200" height="200" fill="url(#hztrg)" opacity="0.22"/><rect x="0" y="-2" width="200" height="200" fill="url(#hzblg)" opacity="0.13"/><rect x="600" y="-2" width="200" height="200" fill="url(#hzbrg)" opacity="0.13"/>
+<g filter="url(#eyeg)" opacity="0.85"><circle class="eL" cx="30" cy="28" r="2.2" fill="#ff2b34"/><circle class="eR" cx="44" cy="28" r="2.2" fill="#ff2b34"/></g><circle cx="30" cy="28" r="1.5" fill="#ff1a26"/><circle cx="44" cy="28" r="1.5" fill="#ff1a26"/><circle cx="30" cy="28" r="0.7" fill="#ff5a5a"/><circle cx="44" cy="28" r="0.7" fill="#ff5a5a"/>
+<text x="62" y="32.5" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10" font-weight="700" letter-spacing="1.8" fill="#5b6473" text-anchor="start">GITHUB</text>
+<text x="772" y="32.5" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10" font-weight="700" letter-spacing="1.8" fill="#3f4756" text-anchor="end">@NOTHINGXZ0</text>
+<text x="28.0" y="88" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="34" font-weight="500" letter-spacing="-0.34" fill="#dfe4ec">17</text>
+<text x="28.0" y="103" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="9" font-weight="500" letter-spacing="1.1" fill="#5b6473">REPOS</text>
+<text x="214.0" y="88" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="34" font-weight="500" letter-spacing="-0.34" fill="#dfe4ec">140</text>
+<text x="214.0" y="103" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="9" font-weight="500" letter-spacing="1.1" fill="#5b6473">COMMITS / YR</text>
+<text x="400.0" y="88" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="34" font-weight="500" letter-spacing="-0.34" fill="#dfe4ec">14</text>
+<text x="400.0" y="103" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="9" font-weight="500" letter-spacing="1.1" fill="#5b6473">FOLLOWERS</text>
+<text x="586.0" y="88" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="34" font-weight="500" letter-spacing="-0.34" fill="#dfe4ec">1</text>
+<text x="586.0" y="103" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="9" font-weight="500" letter-spacing="1.1" fill="#5b6473">STARS</text>
+<rect x="28" y="112" width="744" height="6" rx="1" fill="#0e1219"/>
+<rect x="28.00" y="112" width="146.10" height="6" rx="1" fill="#ff1a26" fill-opacity="0.88"/>
+<rect x="174.10" y="112" width="141.30" height="6" rx="1" fill="#aab3c0"/>
+<rect x="315.41" y="112" width="118.66" height="6" rx="1" fill="#7e8798"/>
+<rect x="434.06" y="112" width="105.77" height="6" rx="1" fill="#5c6473"/>
+<rect x="539.84" y="112" width="75.79" height="6" rx="1" fill="#424a58"/>
+<rect x="615.63" y="112" width="156.37" height="6" rx="1" fill="#2e3542"/>
+<rect x="28.0" y="138.5" width="6" height="6" rx="1" fill="#ff1a26"/>
+<text x="43.0" y="146.0" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10.5" fill="#8a919c">C++ <tspan fill="#3f4756">19.6%</tspan></text>
+<rect x="276.0" y="138.5" width="6" height="6" rx="1" fill="#aab3c0"/>
+<text x="291.0" y="146.0" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10.5" fill="#8a919c">Python <tspan fill="#3f4756">19.0%</tspan></text>
+<rect x="524.0" y="138.5" width="6" height="6" rx="1" fill="#7e8798"/>
+<text x="539.0" y="146.0" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10.5" fill="#8a919c">Jupyter <tspan fill="#3f4756">15.9%</tspan></text>
+<rect x="28.0" y="159.5" width="6" height="6" rx="1" fill="#5c6473"/>
+<text x="43.0" y="167.0" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10.5" fill="#8a919c">Java <tspan fill="#3f4756">14.2%</tspan></text>
+<rect x="276.0" y="159.5" width="6" height="6" rx="1" fill="#424a58"/>
+<text x="291.0" y="167.0" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10.5" fill="#8a919c">C <tspan fill="#3f4756">10.2%</tspan></text>
+<rect x="524.0" y="159.5" width="6" height="6" rx="1" fill="#2e3542"/>
+<text x="539.0" y="167.0" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="10.5" fill="#8a919c">Other <tspan fill="#3f4756">21.0%</tspan></text>
+</g>
+<rect x="0.5" y="0.5" width="799" height="197" rx="9.5" fill="none" stroke="#151a24"/>
+</svg>
